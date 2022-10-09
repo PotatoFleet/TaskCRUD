@@ -1,0 +1,82 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Oyester Task",
+    "description": "A task CRUD application for an internship",
+    "version": "1.0"
+  },
+  "produces": ["application/json"],
+  "paths": {
+    "/create": {
+      "post": {
+        "tags": ["/create"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "done",
+            "in": "formData",
+            "type": "boolean"
+          },
+          {
+            "name": "deadline",
+            "in": "formData",
+            "type": "date"
+          }
+        ]
+      }
+    },
+    "/read": {
+      "get": {
+        "tags": ["/read"],
+        "responses": {
+          "200": {
+            "description": "Created Book!"
+          }
+        }
+      }
+    },
+    "/update": {
+      "put": {
+        "tags": ["/update"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "formData",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "done",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "deadline",
+            "in": "formData",
+            "type": "date"
+          }
+        ]
+      }
+    },
+    "/del": {
+      "delete": {
+        "tags": ["/delete"],
+        "parameters": [
+          {
+            "name": "id"
+          }
+        ]
+      }
+    }
+  }
+}

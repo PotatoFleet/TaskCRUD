@@ -2,6 +2,8 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./swagger.json");
 
 require("dotenv").config();
 
@@ -14,6 +16,8 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.post("/create", (req, res) => {
   try {
     new Task({
@@ -21,10 +25,10 @@ app.post("/create", (req, res) => {
       done: req.body.done,
       deadline: req.body.deadline,
     }).save();
-    res.send({ successful: true, message: "Successfully created task" });
   } catch (err) {
-    res.send({ successful: false, message: err });
+    console.log(err);
   }
+  res.sendStatus(200);
 });
 
 app.get("/read", async (_req, res) => {
@@ -44,9 +48,9 @@ app.put("/update", async (req, res) => {
         },
       }
     );
-    res.send({ successful: true, message: "Successfully updated task" });
+    res.sendStatus(200);
   } catch (err) {
-    res.send({ successful: false, message: err });
+    res.sendStatus(500);
   }
 });
 
